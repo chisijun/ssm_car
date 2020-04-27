@@ -3,6 +3,7 @@ package org.study.car.service;
 import com.github.pagehelper.PageInfo;
 import org.study.car.base.IService;
 import org.study.car.model.domain.User;
+import org.study.car.model.dto.CheckLoginNameDto;
 import org.study.car.model.dto.ModifyPwdDto;
 import org.study.car.model.dto.UserQueryDto;
 
@@ -78,4 +79,13 @@ public interface UserService extends IService<User> {
 	 */
 	Integer modifyPwd(ModifyPwdDto modifyPwdDto, User login);
 
+	/**
+	 * 校验登录名是否位置
+	 *
+	 * @param checkLoginNameDto	the check login name dto
+	 *
+	 * @return	the boolean
+	 * true登录名唯一 false-登录名不唯一
+	 */
+	boolean checkLoginName(CheckLoginNameDto checkLoginNameDto);
 }

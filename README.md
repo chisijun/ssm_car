@@ -39,3 +39,15 @@ Server > VM options 设置为 `-Dfile.encoding=UTF-8` 重启tomcat
 ## 3.设置自动导入包
 file > setting > Editor > General > Auto Import, 按照下图勾选，点击Apply
 ![](https://img-blog.csdnimg.cn/20200426112654891.png "设置自动导入包")
+## 4.mybatis字段下划线转驼峰
+在配置文件`mybatis-config.xml`中添加`mapUnderscoreToCamelCase`属性
+```
+<settings>
+    <!--解决，查询返回结果含null没有对应字段值问题-->
+    <setting name="callSettersOnNulls" value="true"/>
+    <!-- mybatis控制台LOG输出 -->
+    <setting name="logImpl" value="LOG4J2" />
+    <!-- 下划线转驼峰 -->
+    <setting name="mapUnderscoreToCamelCase" value="true" />
+</settings>
+```

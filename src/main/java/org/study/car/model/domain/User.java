@@ -3,8 +3,9 @@ package org.study.car.model.domain;
 import lombok.Data;
 import org.study.car.base.BaseEntity;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Data
 @Table(name = "t_user")
@@ -101,5 +102,20 @@ public class User extends BaseEntity {
      */
     @Column(name = "pwd_error_time")
     private Date pwdErrorTime;
+
+    /**
+     * 角色ID
+     */
+    private Long roleId;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 角色编码
+     */
+    private String roleCode;
 
 }

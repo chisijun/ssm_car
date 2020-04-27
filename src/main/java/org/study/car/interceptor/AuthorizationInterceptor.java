@@ -7,14 +7,16 @@
  */
 package org.study.car.interceptor;
 
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.study.heat.annotation.Authorization;
-import org.study.heat.config.Constants;
-import org.study.heat.entity.TokenModel;
-import org.study.heat.service.TokenManager;
+import org.study.car.annotation.Authorization;
+import org.study.car.common.JsonResult;
+import org.study.car.config.Constants;
+import org.study.car.model.entity.TokenModel;
+import org.study.car.service.TokenManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +55,9 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         //如果验证token失败，并且方法注明了Authorization，返回401错误
         if (method.getAnnotation(Authorization.class) != null) {
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            httpServletResponse.setContentType("application/json;charset=UTF-8");
+            JSONObject jsObject = JSONObject.fromObject(new JsonResult(false, "用户尚未登录", ""));
+            httpServletResponse.getWriter().write(jsObject.toString());
             return false;
         }
         return true;

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.study.heat.config.Constants;
+import org.study.car.config.Constants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -43,7 +43,7 @@ public class LogAspect {
      * @Description: 方法调用前触发  记录开始时间  
      * @param joinPoint 
      */  
-    @Before("execution(* org.study.heat.controller..*.*(..))")
+    @Before("execution(* org.study.car.controller..*.*(..))")
     public void doBeforeInServiceLayer(JoinPoint joinPoint) {  
         startTimeMillis = System.currentTimeMillis(); // 记录方法开始执行的时间  
     }  
@@ -52,7 +52,7 @@ public class LogAspect {
      * @Description: 方法调用后触发  记录结束时间 
      * @param joinPoint 
      */  
-    @After("execution(* org.study.heat.controller..*.*(..))")
+    @After("execution(* org.study.car.controller..*.*(..))")
     public void doAfterInServiceLayer(JoinPoint joinPoint) {  
         endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间  
         this.printOptLog();  
@@ -62,7 +62,7 @@ public class LogAspect {
      * @Description: 环绕触发  
      * @param pjp 
      */  
-    @Around("execution(* org.study.heat.controller..*.*(..))")
+    @Around("execution(* org.study.car.controller..*.*(..))")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {  
         /** 
          * 1.获取request信息 

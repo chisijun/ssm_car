@@ -12,8 +12,11 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.study.car.base.BaseService;
+import org.study.car.dao.RoleUserMapper;
 import org.study.car.dao.UserMapper;
+import org.study.car.model.domain.RoleUser;
 import org.study.car.model.domain.User;
+import org.study.car.model.dto.CheckLoginNameDto;
 import org.study.car.model.dto.ModifyPwdDto;
 import org.study.car.model.dto.UserQueryDto;
 import org.study.car.model.enums.UserTypeEnum;
@@ -21,6 +24,7 @@ import org.study.car.model.vo.UserVo;
 import org.study.car.service.UserService;
 import org.study.car.utils.MD5;
 import org.study.car.utils.PublicUtil;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,6 +40,8 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Resource
 	private UserMapper userMapper;
+	@Resource
+	private RoleUserMapper roleUserMapper;
 
 	
 	/* (non-Javadoc)
@@ -98,6 +104,19 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		user.setUpdateInfo(login);
 		
 		if (user.isNew()) {
+
+			User userQuery = userMapper.selectByPrimaryKey(user.getId());
+			if (PublicUtil.isEmpty(userQuery)) {
+				throw new RuntimeException("用户不存在.");
+			}
+
+			// 校验手机号是否重复
+
+
+			// 校验登录名是否重复
+
+			// 校验是否有更新角色
+
 			String password = MD5.getMd5().getMD5ofStr("123456");
 			user.setType(UserTypeEnum.USER.getType());
 			user.setLoginPwd(password);
@@ -105,7 +124,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			return userMapper.insertSelective(user);
 		} else {
 			
-			return userMapper.updateByPrimaryKeySelective(user);
+			userMapper.updateByPrimaryKeySelective(user);
+
+			RoleUser roleUser = new RoleUser();
+			roleUser.setRoleId(user.getRoleId());
+
+			return roleUserMapper.insertSelective(roleUser);
 		}
 	}
 
@@ -156,6 +180,32 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		user.setLoginPwd(password);
 		
 		return userMapper.updateByPrimaryKeySelective(user);
+	}
+
+	/**
+	 * 校验登录名是否位置
+	 *
+	 * @param checkLoginNameDto the check login name dto
+	 *
+	 * @return the boolean
+	 * true登录名唯一 false-登录名不唯一
+	 */
+	@Override
+	public boolean checkLoginName(CheckLoginNameDto checkLoginNameDto) {
+
+		Long id = checkLoginNameDto.getUserId();
+		String loginName = checkLoginNameDto.getLoginName();
+
+		Example example = new Example(User.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("loginName", loginName);
+		if (id != null) {
+			criteria.andNotEqualTo("id", id);
+		}
+
+		int result = selectCountByExample(example);
+
+		return result < 1;
 	}
 
 }
