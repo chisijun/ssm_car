@@ -7,6 +7,7 @@
  */
 package org.study.car.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -28,6 +29,7 @@ import java.lang.reflect.Method;
  * @author chisj chisj@foxmail.com
  * @date 2017年9月12日
  */
+@Slf4j
 public class AuthorizationInterceptor implements HandlerInterceptor {
 	
     @Autowired
@@ -44,7 +46,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
         //从header中得到token
         String authorization = httpServletRequest.getHeader(Constants.AUTHORIZATION);
-        System.out.println("authorization = " + authorization);
+        log.info("=====> authorization = {}", authorization);
         //验证token
         TokenModel model = tokenManager.getToken(authorization);
         if (tokenManager.checkToken(model)) {
