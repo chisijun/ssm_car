@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.study.car.dao.RecordMapper" >
+  <resultMap id="BaseResultMap" type="org.study.car.model.domain.Record" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="car_id" property="carId" jdbcType="VARCHAR" />
+    <result column="man_hour" property="manHour" jdbcType="INTEGER" />
+    <result column="hour_price" property="hourPrice" jdbcType="DECIMAL" />
+    <result column="hour_total" property="hourTotal" jdbcType="DECIMAL" />
+    <result column="stock_total" property="stockTotal" jdbcType="INTEGER" />
+    <result column="before_total" property="beforeTotal" jdbcType="DECIMAL" />
+    <result column="sub_total" property="subTotal" jdbcType="DECIMAL" />
+    <result column="after_total" property="afterTotal" jdbcType="DECIMAL" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="stat" property="stat" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creator" property="creator" jdbcType="VARCHAR" />
+    <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="last_operator" property="lastOperator" jdbcType="VARCHAR" />
+    <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
