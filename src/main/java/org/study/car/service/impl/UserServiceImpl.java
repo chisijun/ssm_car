@@ -51,7 +51,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	public User selectUserById(Long userId) {
 		// TODO Auto-generated method stub
 		
-		return userMapper.selectByPrimaryKey(userId);
+		return userMapper.selectByUserId(userId);
 	}
 
 	/* (non-Javadoc)

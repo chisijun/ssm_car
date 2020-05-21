@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.study.car.dao.RoleMapper" >
-  <resultMap id="BaseResultMap" type="org.study.car.model.domain.Role" >
+<mapper namespace="org.study.car.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="org.study.car.model.domain.Menu" >
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="version" property="version" jdbcType="INTEGER" />
-    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
-    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="menu_code" property="menuCode" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="BIGINT" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="leaf" property="leaf" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="application_id" property="applicationId" jdbcType="BIGINT" />
     <result column="creator" property="creator" jdbcType="VARCHAR" />
     <result column="creator_id" property="creatorId" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
@@ -18,17 +25,4 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-
-  <select id="queryRoleListWithPage" resultType="org.study.car.model.domain.Role">
-
-    SELECT * FROM t_role
-    WHERE
-      1 = 1
-      <if test="roleName != null and roleName != ''">
-        AND role_name LIKE concat('%', #{roleName}, '%')
-      </if>
-      ORDER BY
-        created_time DESC
-  </select>
-
 </mapper>

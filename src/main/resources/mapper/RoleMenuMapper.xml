@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.study.car.dao.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="org.study.car.model.domain.RoleMenu" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="role_id" property="roleId" jdbcType="BIGINT" />
+    <id column="menu_id" property="menuId" jdbcType="BIGINT" />
+  </resultMap>
+
+  <select id="queryMenuListByRoleId" resultType="org.study.car.model.vo.MenuVo">
+    SELECT
+      m.id,
+      m.pid,
+      m.menu_name as `name`,
+      m.url,
+      m.icon
+    FROM
+      t_role_menu rm
+    LEFT JOIN t_menu m ON rm.menu_id = m.id
+    WHERE
+      rm.role_id = #{roleId}
+  </select>
+</mapper>

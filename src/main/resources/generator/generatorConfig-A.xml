@@ -40,35 +40,43 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="t_custom" domainObjectName="Custom">
+        <!--<table tableName="t_custom" domainObjectName="Custom">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_car" domainObjectName="Car">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_type" domainObjectName="Type">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_item" domainObjectName="Item">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_part" domainObjectName="Part">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_part_check" domainObjectName="PartCheck">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_record" domainObjectName="Record">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_record_item" domainObjectName="RecordItem">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="t_menu" domainObjectName="Menu">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
-        <table tableName="t_car" domainObjectName="Car">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_type" domainObjectName="Type">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_item" domainObjectName="Item">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_part" domainObjectName="Part">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_part_check" domainObjectName="PartCheck">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_record" domainObjectName="Record">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-        <table tableName="t_record_item" domainObjectName="RecordItem">
+        <table tableName="t_role_menu" domainObjectName="RoleMenu">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

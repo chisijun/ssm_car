@@ -1,0 +1,42 @@
+package org.study.car.service.impl;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.stereotype.Service;
+import org.study.car.base.BaseService;
+import org.study.car.dao.RoleMapper;
+import org.study.car.model.domain.Role;
+import org.study.car.model.dto.RoleQueryDto;
+import org.study.car.service.RoleService;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * @Auther: chisj chisj@foxmal.com
+ * @Date: 2020-05-21 15:12
+ * @Description:
+ */
+@Service("roleService")
+public class RoleServiceImpl extends BaseService<Role> implements RoleService {
+
+    @Resource
+    private RoleMapper roleMapper;
+
+    /**
+     * query role list with page
+     *
+     * @param roleQueryDto the role query dto
+     *
+     * @return the page info.
+     */
+    @Override
+    public PageInfo queryRoleListWithPage(RoleQueryDto roleQueryDto) {
+
+        PageHelper.startPage(roleQueryDto.getPageNum(), roleQueryDto.getPageSize());
+
+        List<Role> roleList = roleMapper.queryRoleListWithPage(roleQueryDto);
+
+        return new PageInfo<>(roleList);
+    }
+}
