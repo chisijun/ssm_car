@@ -42,22 +42,34 @@
 				<!--<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html')"><i class="layui-icon"></i>添加</button>-->
 				<!--<span class="fr" style="line-height:40px">共有数据：88 条</span>-->
 			<!--</div>-->
-			<table class="layui-table">
-				<thead id="table-head">
+			<table class="layui-table" id="roleList">
+				<thead>
 				</thead>
-				<tbody id="table-body">
+				<tbody>
 				</tbody>
 			</table>
-			<div class="page">
-				<div>
-					<a class="prev" href="">&lt;&lt;</a>
-					<a class="num" href="">1</a>
-					<span class="current">2</span>
-					<a class="num" href="">3</a>
-					<a class="num" href="">489</a>
-					<a class="next" href="">&gt;&gt;</a>
-				</div>
-			</div>
+
+			<script type="text/html" id="operateTpl">
+				<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', '{{d.id}}', 600, 400)" href="javascript:;">
+					<i class="layui-icon">&#xe642;</i>
+				</a>
+				<a title="删除" onclick="member_del(this,'{{d.id}}')" href="javascript:;">
+					<i class="layui-icon">&#xe640;</i>
+				</a>
+			</script>
+
+			<!--<div class="page">-->
+				<!--<div>-->
+					<!--<a class="prev" href="">&lt;&lt;</a>-->
+					<!--<a class="num" href="">1</a>-->
+					<!--<span class="current">2</span>-->
+					<!--<a class="num" href="">3</a>-->
+					<!--<a class="num" href="">489</a>-->
+					<!--<a class="next" href="">&gt;&gt;</a>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--分页-->
+			<div id="page" style="text-align:center;margin-top:30px;width:100%;"></div>
 		</div>
 		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
 		<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
@@ -65,10 +77,19 @@
 		<script type="text/javascript" src="../../js/public.js"></script>
 
 		<script>
-            layui.use(['layer', 'laypage'], function() {
 
-                var layer = layui.layer;
-                var laypage = layui.laypage;
+            // layui.extend({
+            //     admin: '{/}../../static/js/admin'
+            // });
+
+            layui.use(['laydate', 'table', 'form', 'layer', 'admin', 'laypage'], function() {
+
+                var laydate = layui.laydate,
+                    table = layui.table,
+                    layer = layui.layer,
+                    admin = layui.admin,
+                    form = layui.form,
+                    laypage = layui.laypage;
 
                 //页面渲染
                 var name = '';
@@ -113,7 +134,7 @@
                                 elem: 'page', //容器
                                 pages: arr.data.pages, // 总页数
                                 count: arr.data.total, //总条数
-                                theme: '#0D3D89', //主题
+                                theme: '#009688', //主题
                                 last: '末页', //最后一页
                                 limit: '10', //每页条数限制
                                 curr: arr.data.pageNum, //当前页
@@ -128,48 +149,40 @@
                                     }
                                 }
                             });
-                            var thead = '',
-                                tbody = '';
+
                             if (arr.data.list == '' || arr.data.list == null) {
                                 layer.msg('暂无数据!');
                             } else {
-
-                                alert(999);
-
-                                thead =
-									'<tr>'
-										'<th>'
-										'<div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>'
-										'</th>'
-										'<th>ID</th>'
-										'<th>角色编码</th>'
-										'<th>拥有名称</th>'
-										'<th>描述</th>'
-										'<th>操作</th>'
-									'</tr>';
-                                $('#table-head').html(thead);
-
-                                for (var i = 0; i < arr.data.list.length; i++) {
-                                    // tbody +=
-										// '<tr>' +
-										// 	'<td>' +
-										// 	'<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id=' + arr.data.list[i].id + + '><i class="layui-icon">&#xe605;</i></div>'
-										// 	'</td>' +
-										// 	'<td>' + arr.data.list[i].id + '</td>' +
-										// 	'<td>' + arr.data.list[i].roleCode + '</td>' +
-										// 	'<td>' + arr.data.list[i].roleName + '</td>' +
-										// 	'<td>' + arr.data.list[i].remark + '</td>' +
-										// 	'<a title="编辑" onclick="WeAdminShow(' + '编辑' +',' + './role-add.html' + ')" href="javascript:;">' +
-										// 		'<i class="layui-icon">&#xe642;</i>' +
-										// 	'</a>' +
-										// 	'<a title="删除" onclick="member_del(this,' + arr.data.list[i].id +')" href="javascript:;">' +
-										// 		'<i class="layui-icon">&#xe640;</i>' +
-										// 	'</a>' +
-										// 	'</td>' +
-										// '</tr>';
-                                }
-
-                                $('.table-body').html(tbody);
+                                table.render({
+                                    elem: '#roleList',
+                                    cellMinWidth: 80,
+                                    cols: [
+                                        [{
+                                            type: 'checkbox'
+                                        }, {
+                                            field: 'id',title: 'ID',
+                                        }, {
+                                            field: 'roleName',title: '角色名称',
+                                        }, {
+                                            field: 'roleCode',title: '角色编码',
+                                        }, {
+                                            field: 'remark',title: '备注',
+                                        },  {
+                                            field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true
+                                        }]
+                                    ],
+                                    data: arr.data.list,
+                                    onRowClick: function (index, row, tr) { //index第几行、row点击行的数据、tr点击行的tr对象
+                                        // alert(999);
+                                    },
+                                    rowStyle: function (index, row) {//index第几行，row当前行的值
+                                        alert(999);
+										alert(row.id);
+                                        return ' data-id="' + row.id + '" ';
+                                    }
+                                    // event: true,
+                                    // page: true
+                                });
                             }
                         }
 
