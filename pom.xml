@@ -403,6 +403,18 @@
       <version>20.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.alipay.sdk</groupId>
+      <artifactId>alipay-sdk-java</artifactId>
+      <version>4.10.0.ALL</version>
+    </dependency>
+
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>5.0.0</version>
+      </dependency>
+
   </dependencies>
 
   <build>

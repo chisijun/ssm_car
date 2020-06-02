@@ -8,6 +8,8 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 		form = layui.form,
 		admin = layui.admin;
 
+
+
 	table.render({
 		elem: '#articleList',
 		cellMinWidth: 80,
@@ -61,6 +63,11 @@ layui.use(['table', 'jquery','form', 'admin'], function() {
 	$(function(){
 		form.render();
 	});
+
+    // var pageNo = layui.jquery(".layui-input").val();
+    // var pageNo = $('.layui-input').val();
+    // alert(123);
+    // alert(pageNo);
 	
 	var active = {
 		getCheckData: function() { //获取选中数据

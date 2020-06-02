@@ -114,38 +114,27 @@
             });
 
             function frameVal(){
-
-                var parent_json = eval('('+parent.json+')');
-                console.log(parent_json);
-
-                $('input[name="roleName"]').val(parent_json.roleName);
-
-                form.render();
-
-                // alert(727);
-                // var dataId = $('input[name="dataId"]').val();
-                // alert(dataId);
-                // var index = parent.layer.getFrameIndex(window.name);
-                // // console.log(parent.layui.jquery("#roleList tr").html());
-                // // alert(parent.layui.jquery("#roleList tr").html());
-                // parent.layui.jquery("#roleList tr").each(function(){
-                //     alert(1234);
-                //     if($(this).attr('data-id')==dataId){
-                //         console.log($(this));
-                //         var tdArr=$(this).children('td');
-                //         var roleName = tdArr.eq(2).text(); //姓名
-                //         var roleCode = tdArr.eq(3).text(); //姓名
-                //         var remark = tdArr.eq(4).text(); //姓名
-                //         alert(roleName);
-                //         $('input[name="roleName"]').val(roleName);
-                //         console.log("sex:"+sex);
-                //         // $('input[name="sex"][value="'+sex+'"]').attr("checked",true);
-                //         $('input[name="roleCode"]').val(roleCode);
-                //         $('input[name="remark"]').val(remark);
-                //         // $('input[name="address"]').val(address);
-                //         form.render();
-                //     }
-                // });
+                var dataId = $('input[name="dataId"]').val();
+                alert(dataId);
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.layui.jquery("#articleList tr").each(function(){
+                    alert(1234);
+                    if($(this).attr('data-id')==dataId){
+                        console.log($(this));
+                        var tdArr=$(this).children('td');
+                        var roleName = tdArr.eq(2).text(); //姓名
+                        var roleCode = tdArr.eq(3).text(); //姓名
+                        var remark = tdArr.eq(4).text(); //姓名
+                        alert(roleName);
+                        $('input[name="roleName"]').val(roleName);
+                        console.log("sex:"+sex);
+                        // $('input[name="sex"][value="'+sex+'"]').attr("checked",true);
+                        $('input[name="roleCode"]').val(roleCode);
+                        $('input[name="remark"]').val(remark);
+                        // $('input[name="address"]').val(address);
+                        form.render();
+                    }
+                });
             }
         
           //自定义验证规则

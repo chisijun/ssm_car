@@ -20,4 +20,13 @@ public interface RoleService extends IService<Role> {
      * @return  the page info.
      */
     PageInfo queryRoleListWithPage(RoleQueryDto roleQueryDto);
+
+    /**
+     * delete by id
+     *
+     * @param id    the id
+     *
+     * @return  the int.
+     */
+    Integer deleteById(Long id);
 }

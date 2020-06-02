@@ -31,9 +31,9 @@
 			<div class="layui-row">
 				<!--<form class="layui-form layui-col-md12 we-search">-->
 				<div class="layui-inline">
-					<input type="text" name="username" placeholder="请输入角色名" autocomplete="off" class="layui-input">
+					<input type="text" id="name" name="username" placeholder="请输入角色名" autocomplete="off" class="layui-input">
 				</div>
-				<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+				<button id="search" class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
 				<button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html')"><i class="layui-icon"></i>添加</button>
 				<!--</form>-->
 			</div>
@@ -43,19 +43,92 @@
 				<!--<span class="fr" style="line-height:40px">共有数据：88 条</span>-->
 			<!--</div>-->
 			<table class="layui-table" id="roleList">
-				<thead>
-				</thead>
-				<tbody>
-				</tbody>
+				<!--<thead>-->
+				<!--<tr>-->
+					<!--<th>-->
+						<!--<div class="layui-unselect header layui-form-checkbox" lay-skin="primary">-->
+							<!--<i class="layui-icon">&#xe605;</i>-->
+						<!--</div>-->
+					<!--</th>-->
+					<!--<th>ID</th>-->
+					<!--<th>用户名</th>-->
+					<!--<th>性别</th>-->
+					<!--<th>状态</th>-->
+					<!--<th>操作</th>-->
+				<!--</tr>-->
+				<!--</thead>-->
+				<!--<tbody>-->
+				<!--<tr data-id="1">-->
+					<!--<td>-->
+						<!--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="1">-->
+							<!--<i class="layui-icon">&#xe605;</i>-->
+						<!--</div>-->
+					<!--</td>-->
+					<!--<td>1</td>-->
+					<!--<td>小张</td>-->
+					<!--<td>男</td>-->
+					<!--<td class="td-status">-->
+						<!--<span class="layui-btn layui-btn-normal layui-btn-xs">已启用</span>-->
+					<!--</td>-->
+					<!--<td class="td-manage">-->
+						<!--<a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">-->
+							<!--<i class="layui-icon layui-icon-download-circle"></i>-->
+						<!--</a>-->
+						<!--<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', 1, 600, 400)" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-edit"></i>-->
+						<!--</a>-->
+						<!--<a onclick="WeAdminShow('修改密码','./password.html',600,400)" title="修改密码" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-util"></i>-->
+						<!--</a>-->
+						<!--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-delete"></i>-->
+						<!--</a>-->
+					<!--</td>-->
+				<!--</tr>-->
+				<!--<tr data-id="2">-->
+					<!--<td>-->
+						<!--<div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id="2">-->
+							<!--<i class="layui-icon">&#xe605;</i>-->
+						<!--</div>-->
+					<!--</td>-->
+					<!--<td>2</td>-->
+					<!--<td>小明</td>-->
+					<!--<td>女</td>-->
+					<!--<td class="td-status">-->
+						<!--<span class="layui-btn layui-btn-normal layui-btn-xs">已启用</span>-->
+					<!--</td>-->
+					<!--<td class="td-manage">-->
+						<!--<a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">-->
+							<!--<i class="layui-icon layui-icon-download-circle"></i>-->
+						<!--</a>-->
+						<!--<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', 2, 600, 400)" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-edit"></i>-->
+						<!--</a>-->
+						<!--<a onclick="WeAdminShow('修改密码','./password.html',600,400)" title="修改密码" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-util"></i>-->
+						<!--</a>-->
+						<!--<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">-->
+							<!--<i class="layui-icon layui-icon-delete"></i>-->
+						<!--</a>-->
+					<!--</td>-->
+				<!--</tr>-->
+				<!--</tbody>-->
 			</table>
+
+			<!--<table id="userlistTable" lay-filter="test"></table>-->
 
 			<script type="text/html" id="operateTpl">
 				<a title="编辑" onclick="WeAdminEdit('编辑','./edit.html', '{{d.id}}', 600, 400)" href="javascript:;">
 					<i class="layui-icon">&#xe642;</i>
 				</a>
-				<a title="删除" onclick="member_del(this,'{{d.id}}')" href="javascript:;">
+				<a title="删除" onclick="my_del(this,'{{d.id}}')" href="javascript:;">
 					<i class="layui-icon">&#xe640;</i>
 				</a>
+			</script>
+
+			<script type="text/html" id="userPicBtn">
+				<span class="layui-btn" href="javascript:;" lay-event="invest_perfer" >投资偏好</span>
+				<span class="layui-btn" href="javascript:;" lay-event="member_photo" >用户画像</span>
 			</script>
 
 			<!--<div class="page">-->
@@ -77,23 +150,66 @@
 		<script type="text/javascript" src="../../js/public.js"></script>
 
 		<script>
-
+            var json;
             // layui.extend({
             //     admin: '{/}../../static/js/admin'
             // });
 
-            layui.use(['laydate', 'table', 'form', 'layer', 'admin', 'laypage'], function() {
+            layui.use(['laydate', 'table', 'form', 'layer', 'admin', 'laypage', 'element'], function() {
 
                 var laydate = layui.laydate,
                     table = layui.table,
                     layer = layui.layer,
                     admin = layui.admin,
                     form = layui.form,
-                    laypage = layui.laypage;
+                    laypage = layui.laypage,
+                    element  = layui.element;
 
                 //页面渲染
                 var name = '';
                 getData(1, name);
+
+                $('body').on('click', '#search', function() {
+                    var name = $('#name').val();
+                    // alert(name);
+                    getData(1, name);
+                });
+
+
+                // table.render({
+                //     elem: '#userlistTable'
+                //     ,height: 300
+                //     // ,url: '/userlist' //数据接口
+                //     ,page: true //开启分页
+                //     ,cols: [[ //表头
+                //         {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left',align:'center'}
+                //         ,{field: 'name', title: '用户名', width:80,align:'center'}
+                //         ,{field: 'sex', title: '性别', width:100, sort: true,align:'center'}
+                //         ,{field: 'mobil', title: '手机', width:150,align:'center'}
+                //         ,{field: 'log_in_time', title: '加入时间', sort: true, width: 250,align:'center'}
+                //         ,{title: '操作', width: 300, toolbar:'#userPicBtn',align:'center'}
+                //     ]],
+                //     data: [{ id: 1, name: '张三' }, { id: 2, name: '李四' }],//没卵用
+                //     done: function (res, curr, count) {
+                //         // $('.x-body').find('.layui-table-body').find("table").find("tbody").children("tr").on('click', function () {
+                //         //   var id = JSON.stringify($('.x-body').find('.layui-table-body').find("table").find("tbody").find(".layui-table-hover").data('index'));
+                //         //   var obj = res.data[id];
+                //         //   console.log(obj, 'obj')
+                //         //   // fun.openLayer(obj);
+                //         // })
+                //         table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                //             var data = obj.data; //获得当前行数据
+                //             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                //             var tr = obj.tr; //获得当前行 tr 的DOM对象
+                //             if (layEvent=="invest_perfer"){
+                //                 x_admin_show("投资偏好","/echarts1.html?mobil="+data.mobil,"",510);
+                //             }else{
+                //                 x_admin_show("用户画像","/echarts4.html?mobil="+data.mobil,"",510);
+                //             }
+                //         });
+                //     }
+                //
+                // });
 
                 function accAdd(arg1,arg2){
                     var r1,r2,m;
@@ -153,43 +269,125 @@
                             if (arr.data.list == '' || arr.data.list == null) {
                                 layer.msg('暂无数据!');
                             } else {
-                                table.render({
-                                    elem: '#roleList',
-                                    cellMinWidth: 80,
-                                    cols: [
-                                        [{
-                                            type: 'checkbox'
-                                        }, {
-                                            field: 'id',title: 'ID',
-                                        }, {
-                                            field: 'roleName',title: '角色名称',
-                                        }, {
-                                            field: 'roleCode',title: '角色编码',
-                                        }, {
-                                            field: 'remark',title: '备注',
-                                        },  {
-                                            field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true
-                                        }]
-                                    ],
-                                    data: arr.data.list,
-                                    onRowClick: function (index, row, tr) { //index第几行、row点击行的数据、tr点击行的tr对象
-                                        // alert(999);
-                                    },
-                                    rowStyle: function (index, row) {//index第几行，row当前行的值
-                                        alert(999);
-										alert(row.id);
-                                        return ' data-id="' + row.id + '" ';
-                                    }
-                                    // event: true,
-                                    // page: true
-                                });
+
+                                //方法渲染：
+                                // table.render({
+                                //     elem: '#roleList',
+                                //     cols:  [[ //标题栏
+                                //         {checkbox: true}
+                                //         ,{field: 'id', title: 'ID', width: 80}
+                                //         ,{field: 'username', title: '用户名', width: 120}
+                                //         ,{field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true}
+                                //     ]],
+                                //     data:[{
+                                //         "id": "1",
+                                //         "username": "hhh",
+                                //         // "title": "WeAdmin的第一个版本在不断地抽空完善学习中",
+                                //         // "date": "2018-02-03",
+                                //         // "category": "官方动态",
+                                //         // "sort": "1",
+                                //         // "recommend": "checked",
+                                //         // "top": "checked"
+                                //     }, {
+                                //         "id": "2",
+                                //         "username": "www",
+                                //         // "title": "WeAdmin的测试数据一二三四五六七",
+                                //         // "date": "2018-02-03",
+                                //         // "category": "新闻资讯",
+                                //         // "sort": "1",
+                                //         // "recommend": "",
+                                //         // "top": "checked"
+                                //     }],
+                                // });
+
+
+                                // element.init();
                             }
+
+                            table.render({
+                                elem: '#roleList',
+                                cellMinWidth: 80,
+                                cols: [
+                                    [{
+                                        type: 'checkbox'
+                                    }, {
+                                        field: 'id',title: 'ID',
+                                    }, {
+                                        field: 'roleName',title: '角色名称',
+                                    }, {
+                                        field: 'roleCode',title: '角色编码',
+                                    }, {
+                                        field: 'remark',title: '备注',
+                                    },  {
+                                        field: 'operate',title: '操作',toolbar: '#operateTpl',unresize: true
+                                    }]
+                                ],
+                                data: arr.data.list,
+                                onRowClick: function (index, row, tr) { //index第几行、row点击行的数据、tr点击行的tr对象
+                                    json = JSON.stringify(row);
+                                    // alert(json);
+                                    // alert(row);
+                                },
+                                // rowStyle: function (index, row) {//index第几行，row当前行的值
+                                //     // alert(999);
+                                // alert(row);
+                                //     return ' data-id="' + row.id + '" ';
+                                // }
+                                // event: true,
+                                // page: true
+                            });
+
+                            // element.render();
+                            form.render();
+
+                            // alert($('.layui-input').val());
                         }
 
-                    }, data, 'postForm')
+                    }, data, 'postForm');
+                }
+
+                /*用户-删除*/
+                // window.member_del = function (obj, id) {
+                //     layer.confirm('确认要删除吗？', function(index) {
+                //         //发异步删除数据
+                //         $(obj).parents("tr").remove();
+                //         layer.msg('已删除!', {
+                //             icon: 1,
+                //             time: 1000
+                //         });
+                //     });
+                // }
+
+                /*用户-删除*/
+                window.my_del = function (obj, id) {
+                    layer.confirm('确认要删除吗？', function(index) {
+                        //发异步删除数据
+                        // var pageNo = $('.layui-input').val();
+
+                        request("role/deleteById/" + id, function(arr) {
+                            if (arr.status == false) {
+                                layer.msg(arr.message);
+                            } else {
+                                layer.msg(arr.message);
+                                setTimeout(function() {
+                                    // $(".delete_mask").hide();
+                                    getData(1, name);
+                                }, 1800);
+                            }
+                        }, '', 'postForm')
+
+                        // $(obj).parents("tr").remove();
+                        // layer.msg('已删除!', {
+                        //     icon: 1,
+                        //     time: 1000
+                        // });
+                    });
                 }
 
             });
+
+
+
 		</script>
 	</body>
 

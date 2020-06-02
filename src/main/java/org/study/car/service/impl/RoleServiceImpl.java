@@ -39,4 +39,16 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 
         return new PageInfo<>(roleList);
     }
+
+    /**
+     * delete by id
+     *
+     * @param id the id
+     * @return the int.
+     */
+    @Override
+    public Integer deleteById(Long id) {
+
+        return roleMapper.deleteByPrimaryKey(id);
+    }
 }

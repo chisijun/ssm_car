@@ -28,7 +28,7 @@
         AND role_name LIKE concat('%', #{roleName}, '%')
       </if>
       ORDER BY
-        created_time DESC
+        id ASC
   </select>
 
 </mapper>
