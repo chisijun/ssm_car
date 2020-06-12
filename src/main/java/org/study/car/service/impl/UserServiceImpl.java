@@ -112,7 +112,6 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 			// 校验手机号是否重复
 
-
 			// 校验登录名是否重复
 
 			// 校验是否有更新角色

@@ -16,7 +16,7 @@ import java.util.List;
  * @Date: 2020-04-28 17:44
  * @Description: the class type service impl
  */
-@Service
+@Service("typeService")
 public class TypeServiceImpl extends BaseService<Type> implements TypeService {
 
     @Resource

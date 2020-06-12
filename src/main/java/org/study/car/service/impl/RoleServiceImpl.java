@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.study.car.base.BaseService;
 import org.study.car.dao.RoleMapper;
 import org.study.car.model.domain.Role;
+import org.study.car.model.domain.User;
 import org.study.car.model.dto.RoleQueryDto;
 import org.study.car.service.RoleService;
 
@@ -50,5 +51,17 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
     public Integer deleteById(Long id) {
 
         return roleMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 保存角色信息
+     *
+     * @param login 当前登录者
+     * @param role  角色信息
+     * @return the int
+     */
+    @Override
+    public Integer save(User login, Role role) {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package org.study.car.service;
 import com.github.pagehelper.PageInfo;
 import org.study.car.base.IService;
 import org.study.car.model.domain.Role;
+import org.study.car.model.domain.User;
 import org.study.car.model.dto.RoleQueryDto;
 
 /**
@@ -29,4 +30,14 @@ public interface RoleService extends IService<Role> {
      * @return  the int.
      */
     Integer deleteById(Long id);
+
+    /**
+     * 保存角色信息
+     *
+     * @param login 当前登录者
+     * @param role   角色信息
+     *
+     * @return  the int
+     */
+    Integer save(User login, Role role);
 }

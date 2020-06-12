@@ -10,6 +10,6 @@ import org.study.car.service.RecordItemService;
  * @Date: 2020-04-28 17:42
  * @Description: the class record item service impl
  */
-@Service
+@Service("recordItemService")
 public class RecordItemServiceImpl extends BaseService<RecordItem> implements RecordItemService {
 }

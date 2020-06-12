@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.study.car.annotation.Authorization;
+import org.study.car.annotation.CurrentUser;
 import org.study.car.common.JsonResult;
+import org.study.car.model.domain.Role;
+import org.study.car.model.domain.User;
 import org.study.car.model.dto.RoleQueryDto;
 import org.study.car.service.RoleService;
 
@@ -23,6 +26,26 @@ public class RoleController {
 
     @Resource
     private RoleService roleService;
+
+    /**
+     * 保存角色信息
+     *
+     * @param login 当前登录者
+     * @param role   角色信息
+     *
+     * @return  the json result
+     */
+    @Authorization
+    @RequestMapping(value = "/save")
+    public JsonResult save(@CurrentUser User login, Role role) {
+
+        Integer result = roleService.save(login, role);
+        if (result < 1) {
+            return new JsonResult(false, "操作失败", result);
+        }
+
+        return new JsonResult(true, "操作成功", result);
+    }
 
     /**
      * 查询角色列表

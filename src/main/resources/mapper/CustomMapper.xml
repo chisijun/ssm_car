@@ -21,4 +21,14 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryListWithPage" resultType="org.study.car.model.domain.Custom">
+    SELECT * FROM t_custom
+    WHERE 1 = 1
+      <if test="name !=null and name != ''">
+        AND `name` LIKE concat('%', #{name}, '%')
+      </if>
+    ORDER BY
+      created_time DESC
+  </select>
 </mapper>

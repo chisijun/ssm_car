@@ -23,4 +23,17 @@
     <result column="last_operator_id" property="lastOperatorId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+  <select id="queryListWithPage" resultType="org.study.car.model.vo.CarVo">
+    SELECT * FROM t_car
+    WHERE 1 = 1
+    <if test="vinNo !=null and vinNo != ''">
+      AND vin_no LIKE concat('%', #{vinNo}, '%')
+    </if>
+    <if test="plateNo !=null and plateNo != ''">
+      AND plate_no LIKE concat('%', #{plateNo}, '%')
+    </if>
+    ORDER BY
+      created_time DESC
+  </select>
 </mapper>
